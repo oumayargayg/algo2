@@ -1,0 +1,89 @@
+ALGORITHM algorithm_two_problem_1_solution_1
+VAR
+    array_1 : ARRAY_OF INTEGER;
+    array_2 : ARRAY_OF INTEGER;
+    sum:INTEGER:=0
+    counter:INTEGER
+BEGIN
+    FOR i FROM 0 TO length(array_1) STEP 1  DO
+        Read(array_1[i])
+    END_FOR
+
+        FOR j FROM 0 TO length(array_2) STEP 1  DO
+        Read(array_2[j])
+    END_FOR
+
+    FOR k FROM 0 TO length(array_1) STEP 1  DO
+    counter:=0
+        FOR l FROM 0 TO length(array_2) STEP 1  DO
+            IF (array_1[k] <> array_2[l] ) THEN
+                counter:=counter+1
+            END_IF
+        END_FOR
+
+        IF (counter=length(array_2)) THEN
+            sum:=sum+array_1[k]
+        END_IF
+    END_FOR
+
+    FOR l FROM 0 TO length(array_2) STEP 1  DO
+    counter:=0
+        FOR k FROM 0 TO length(array_1) STEP 1  DO
+            IF (array_2[l] <> array_1[k] ) THEN
+                counter:=counter+1
+            END_IF
+        END_FOR
+
+        IF (counter=length(array_1)) THEN
+            sum:=sum+array_2[l]
+        END_IF
+    END_FOR
+
+    Write(sum)
+END
+
+ALGORITHM algorithm_two_problem_1_solution_2
+VAR
+    array_1 : ARRAY_OF INTEGER;
+    array_2 : ARRAY_OF INTEGER;
+    Htab: HASH_TABLE<INTEGER,INTEGER>
+    keys : ARRAY_OF INTEGER;
+    values : ARRAY_OF INTEGER;
+BEGIN
+        FOR i FROM 0 TO length(array_1) STEP 1  DO
+        Read(array_1[i])
+    END_FOR
+
+        FOR j FROM 0 TO length(array_2) STEP 1  DO
+        Read(array_2[j])
+    END_FOR
+
+    FOR k FROM 0 TO max STEP length(array_1)  DO
+        Htab.insert( array_1[k] ,1)
+    END_FOR
+
+    FOR l FROM 0 TO length(array_2) STEP 1  DO
+        IF (Htab.lookup(array_2[l])=true) THEN
+            Htab.insert(array_2[l],2)
+        ELSE
+            Htab.insert(array_2[l],1)
+        END_IF
+    END_FOR
+    keys:=Htab.getkeys
+    values:=Htab.getValues
+
+    FOR m FROM 0 TO length(keys) STEP 1  DO
+        IF (values[m]=1) THEN
+            sum:=sum+keys[m]
+        END_IF
+    END_FOR
+
+
+END
+
+ALGORITHM algorithm_name
+VAR
+    set_declarations
+BEGIN
+    set_instructions
+END
